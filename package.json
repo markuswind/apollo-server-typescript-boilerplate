@@ -10,10 +10,18 @@
     "node": ">=8.9"
   },
   "scripts": {
+    "fix": "tslint --fix --project .",
     "fix:tslint": "tslint --fix --project .",
     "start": "ts-node src/index.ts",
     "test": "echo \"Error: no test specified\" && exit 1",
+    "test:lint": "tslint --project . && prettier \"src/**/*.ts\" --list-different",
     "test:types": "tsc -p . --noEmit"
+  },
+  "husky": {
+    "hooks": {
+      "pre-commit": "npm run fix && npm run test:lint && npm run test:types",
+      "commit-msg": "commitlint -E HUSKY_GIT_PARAMS"
+    }
   },
   "dependencies": {
     "apollo-server": "^2.9.3",
@@ -24,6 +32,7 @@
     "@commitlint/config-conventional": "^8.1.0",
     "@types/graphql": "^14.5.0",
     "@types/node": "^12.7.3",
+    "husky": "^3.0.5",
     "prettier": "1.18.2",
     "ts-node": "^8.3.0",
     "tslint": "^5.19.0",
