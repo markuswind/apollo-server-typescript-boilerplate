@@ -2,15 +2,28 @@
   "name": "apollo-server-typescript-boilerplate",
   "version": "0.0.1",
   "description": "",
-  "main": "src/index.js",
-  "scripts": {
-    "start": "node src/index.js",
-    "test": "echo \"Error: no test specified\" && exit 1"
-  },
   "keywords": [],
   "author": "",
+  "main": "build/main/index.js",
+  "typings": "build/main/index.d.ts",
+  "engines": {
+    "node": ">=8.9"
+  },
+  "scripts": {
+    "fix:tslint": "tslint --fix --project .",
+    "start": "ts-node src/index.ts",
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "test:types": "tsc -p . --noEmit"
+  },
   "dependencies": {
     "apollo-server": "^2.9.3",
     "graphql": "^14.5.4"
+  },
+  "devDependencies": {
+    "@types/graphql": "^14.5.0",
+    "@types/node": "^12.7.3",
+    "ts-node": "^8.3.0",
+    "tslint": "^5.19.0",
+    "typescript": "^3.6.2"
   }
 }
