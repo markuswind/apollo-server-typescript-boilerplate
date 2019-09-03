@@ -1,4 +1,5 @@
 import { DataSource } from 'apollo-datasource';
+import { QueryBookArgs } from './generated/graphql';
 
 // This is a (sample) collection of books we'll be able to query
 // the GraphQL server for.  A more complete example might fetch
@@ -21,7 +22,7 @@ const books = [
 // into the context of the apollo server, which makes it usable
 // inside the resolvers.
 export class BooksProvider extends DataSource {
-  public async getBook(args: { id: number }) {
+  public async getBook(args: QueryBookArgs) {
     return books[args.id];
   }
 
