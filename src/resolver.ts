@@ -1,5 +1,6 @@
 import { gql } from 'apollo-server';
-import { IResolvers } from './generated/graphql';
+import { addDefaultResolvers } from './defaultResolvers';
+import { Resolvers } from './generated/graphql';
 
 // Type definitions define the "shape" of your data and specify
 // which ways the data can be fetched from the GraphQL server.
@@ -10,6 +11,7 @@ export const typeDefs = gql`
   type Book {
     title: String
     author: String
+    nextInSeries: Book
   }
 
   # The "Query" type is the root of all GraphQL queries.
@@ -22,9 +24,13 @@ export const typeDefs = gql`
 
 // Resolvers define the technique for fetching the types in the
 // schema.  We'll retrieve books from the "books" array above.
-export const resolvers: IResolvers = {
+export const resolvers: Resolvers = addDefaultResolvers({
   Query: {
     book: (_, args, ctx) => ctx.dataSources.booksProvider.getBook(args),
     books: (_, __, ctx) => ctx.dataSources.booksProvider.getBooks()
+  },
+  Book: {
+    nextInSeries: (parent, __, ctx) =>
+      ctx.dataSources.booksProvider.getBook({ id: parent.nextInSeries })
   }
-};
+});
