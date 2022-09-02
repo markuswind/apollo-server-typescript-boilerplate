@@ -6,7 +6,11 @@ documents: null
 generates:
   src/generated/graphql.ts:
     config:
+      avoidOptionals:
+        resolvers: true
       contextType: ../index#Context
+      mappers:
+        Book: ../provider#UnresolvedBook
     plugins:
       - add: '/* tslint:disable */'
       - 'typescript'

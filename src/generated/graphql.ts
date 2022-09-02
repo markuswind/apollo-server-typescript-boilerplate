@@ -1,5 +1,6 @@
 /* tslint:disable */
 import { GraphQLResolveInfo } from 'graphql';
+import { UnresolvedBook } from '../provider';
 import { Context } from '../index';
 export type Maybe<T> = T | null;
 export type RequireFields<T, K extends keyof T> = { [X in Exclude<keyof T, K>]?: T[X] } & { [P in K]-?: NonNullable<T[P]> };
@@ -16,6 +17,7 @@ export type Book = {
    __typename?: 'Book',
   title?: Maybe<Scalars['String']>,
   author?: Maybe<Scalars['String']>,
+  nextInSeries?: Maybe<Book>,
 };
 
 export type Query = {
@@ -101,7 +103,7 @@ export type DirectiveResolverFn<TResult = {}, TParent = {}, TContext = {}, TArgs
 export type ResolversTypes = {
   Query: ResolverTypeWrapper<{}>,
   Int: ResolverTypeWrapper<Scalars['Int']>,
-  Book: ResolverTypeWrapper<Book>,
+  Book: ResolverTypeWrapper<UnresolvedBook>,
   String: ResolverTypeWrapper<Scalars['String']>,
   Boolean: ResolverTypeWrapper<Scalars['Boolean']>,
 };
@@ -110,24 +112,25 @@ export type ResolversTypes = {
 export type ResolversParentTypes = {
   Query: {},
   Int: Scalars['Int'],
-  Book: Book,
+  Book: UnresolvedBook,
   String: Scalars['String'],
   Boolean: Scalars['Boolean'],
 };
 
 export type BookResolvers<ContextType = Context, ParentType extends ResolversParentTypes['Book'] = ResolversParentTypes['Book']> = {
-  title?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>,
-  author?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>,
+  title: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>,
+  author: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>,
+  nextInSeries: Resolver<Maybe<ResolversTypes['Book']>, ParentType, ContextType>,
 };
 
 export type QueryResolvers<ContextType = Context, ParentType extends ResolversParentTypes['Query'] = ResolversParentTypes['Query']> = {
-  book?: Resolver<Maybe<ResolversTypes['Book']>, ParentType, ContextType, RequireFields<QueryBookArgs, 'id'>>,
-  books?: Resolver<Maybe<Array<Maybe<ResolversTypes['Book']>>>, ParentType, ContextType>,
+  book: Resolver<Maybe<ResolversTypes['Book']>, ParentType, ContextType, RequireFields<QueryBookArgs, 'id'>>,
+  books: Resolver<Maybe<Array<Maybe<ResolversTypes['Book']>>>, ParentType, ContextType>,
 };
 
 export type Resolvers<ContextType = Context> = {
-  Book?: BookResolvers<ContextType>,
-  Query?: QueryResolvers<ContextType>,
+  Book: BookResolvers<ContextType>,
+  Query: QueryResolvers<ContextType>,
 };
 
 

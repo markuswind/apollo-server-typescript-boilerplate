@@ -8,14 +8,23 @@ const books = [
   {
     id: 0,
     title: 'Harry Potter and the Chamber of Secrets',
-    author: 'J.K. Rowling'
+    author: 'J.K. Rowling',
+    nextInSeries: 1
   },
   {
     id: 1,
     title: 'Jurassic Park',
-    author: 'Michael Crichton'
+    author: 'Michael Crichton',
+    nextInSeries: 0
   }
 ];
+
+export interface UnresolvedBook {
+  id: number;
+  title: string;
+  author: string;
+  nextInSeries: number;
+}
 
 // This is a (simple) data source which can be used for retrieving
 // the sample collection of books. This dataSource is injected
